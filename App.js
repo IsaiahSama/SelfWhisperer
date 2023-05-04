@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Record">
         <Stack.Screen name="Record" component={Record} />
         <Stack.Screen name="Files" component={Speech} />
       </Stack.Navigator>
