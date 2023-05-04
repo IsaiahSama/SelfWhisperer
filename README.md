@@ -11,3 +11,16 @@ To be Determined... I would like to keep it simple though.
 ## Is is finished yet?
 
 No.
+
+## Intender Overview
+
+Will be a two (2) page application.
+
+### Home Page
+
+The first page (home page) will contain a record button to record speech.
+Once the record button is pressed again, the speech should be processed and then stored in a simple text file somewhere ig... Idk how that works yet.
+
+### Text page
+
+This is where you can view all previous transcriptions. Don't ask about deleting them yet, cause will have to see how I store in the first place
