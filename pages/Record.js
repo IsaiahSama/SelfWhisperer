@@ -3,7 +3,7 @@
 import React from "react";
 import { View } from "react-native";
 
-const Home = ({ navigation }) => {
+const Record = ({ navigation }) => {
   return (
     <View>
       <></>
@@ -11,4 +11,4 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default Record;
