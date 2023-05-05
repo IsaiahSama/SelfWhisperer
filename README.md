@@ -8,6 +8,10 @@ This is a simple mobile app I'd like to make, so that I can record ideas that I 
 
 To be Determined... I would like to keep it simple though.
 
+## Storage
+
+Data will be stored using AsyncStorage.
+
 ## Is is finished yet?
 
 No.
