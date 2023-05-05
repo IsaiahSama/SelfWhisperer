@@ -10,8 +10,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { Audio } from "expo-av";
+
 const Record = ({ navigation }) => {
   const [recording, setRecording] = useState(false);
+  const [recorder, setRecorder] = useState();
 
   const micImage = recording
     ? require("../assets/mic_on.png")
@@ -21,14 +24,51 @@ const Record = ({ navigation }) => {
     ? "Press me to Stop and Save your recording"
     : "Press me to start recording";
 
-  const toggleRecording = () => {
-    if (recording) {
-      console.log("Stopping recording");
-    } else {
-      console.log("Starting recording");
+  const toggleRecording = async () => {
+    try {
+      if (!recording) {
+        startRecording();
+      } else {
+        stopRecording();
+      }
+    } catch (err) {
+      console.log("An error occurred with recording: ", err.message);
+    } finally {
+      setRecording((prevRecording) => !prevRecording);
     }
-    setRecording((prevRecording) => !prevRecording);
   };
+
+  async function startRecording() {
+    try {
+      console.log("Requesting permissions..");
+      await Audio.requestPermissionsAsync();
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      });
+
+      console.log("Starting recording..");
+      const rec = await Audio.Recording.createAsync(
+        Audio.RecordingOptionsPresets.HIGH_QUALITY
+      );
+      setRecorder(rec.recording);
+      console.log("Recording started");
+    } catch (err) {
+      console.error("Failed to start recording", err);
+    }
+  }
+
+  async function stopRecording() {
+    console.log("Stopping recording..", recorder);
+    await recorder.stopAndUnloadAsync();
+    const uri = recorder.getURI();
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+    });
+
+    setRecorder(undefined);
+    console.log("Recording stopped and stored at", uri);
+  }
 
   return (
     <View style={styles.container}>
