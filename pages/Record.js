@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import { Audio } from "expo-av";
+import * as FileSystem from "expo-file-system";
 
 const Record = ({ navigation }) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -60,14 +61,38 @@ const Record = ({ navigation }) => {
   }
 
   async function stopRecording() {
-    console.log("Stopping recording..");
-    setRecording(undefined);
-    await recording.stopAndUnloadAsync();
-    await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-    });
-    const uri = recording.getURI();
-    console.log("Recording stopped and stored at", uri);
+    try {
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI();
+      const fileInfo = await FileSystem.getInfoAsync(uri);
+      const file = {
+        uri: fileInfo.uri,
+        type: "audio/x-m4a",
+        name: `\${Date.now()}.m4a`,
+      };
+      // pass the file object to your API
+      text = await uploadAudio(file);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function uploadAudio(file) {
+    const formData = new FormData();
+    formData.append("audio", file);
+    try {
+      const response = await fetch(" http://192.168.38.12:5000/transcribe/", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
