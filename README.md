@@ -24,3 +24,7 @@ Once the record button is pressed again, the speech should be processed and then
 ### Text page
 
 This is where you can view all previous transcriptions. Don't ask about deleting them yet, cause will have to see how I store in the first place
+
+## Bonus
+
+Here's the wireframe for the files ig... cause... cool ig... :D [Wireframe or something](https://wireframe.cc/hu3Wuw)
