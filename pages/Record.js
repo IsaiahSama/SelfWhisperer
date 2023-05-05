@@ -59,7 +59,7 @@ const Record = ({ navigation }) => {
   }
 
   async function stopRecording() {
-    console.log("Stopping recording..", recorder);
+    console.log("Stopping recording");
     await recorder.stopAndUnloadAsync();
     const uri = recorder.getURI();
     await Audio.setAudioModeAsync({

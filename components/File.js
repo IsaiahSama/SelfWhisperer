@@ -3,9 +3,9 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const File = ({ name, preview }) => {
+const File = ({ name, preview, link }) => {
   const openFile = () => {
-    console.log("Opens file lol.");
+    console.log("Opens file at ", link);
   };
 
   return (
