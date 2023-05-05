@@ -71,7 +71,8 @@ const Record = ({ navigation }) => {
         name: `\${Date.now()}.m4a`,
       };
       // pass the file object to your API
-      text = await uploadAudio(file);
+      words = await uploadAudio(file);
+      console.log(words);
     } catch (error) {
       console.error(error);
     }
@@ -81,7 +82,7 @@ const Record = ({ navigation }) => {
     const formData = new FormData();
     formData.append("audio", file);
     try {
-      const response = await fetch(" http://192.168.38.12:5000/transcribe/", {
+      const response = await fetch("http://192.168.38.12:5000/transcribe/", {
         method: "POST",
         body: formData,
         headers: {
