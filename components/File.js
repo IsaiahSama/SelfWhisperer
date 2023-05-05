@@ -1,14 +1,20 @@
 // Represents a singular file
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 const File = ({ name, preview }) => {
+  const openFile = () => {
+    console.log("Opens file lol.");
+  };
+
   return (
-    <View style={styles.card}>
-      <Text>Name: {name}</Text>
-      <Text>Preview: {preview}</Text>
-    </View>
+    <TouchableOpacity onPress={openFile}>
+      <View style={styles.card}>
+        <Text>Name: {name}</Text>
+        <Text>Preview: {preview}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
