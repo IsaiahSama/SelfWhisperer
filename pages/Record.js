@@ -13,27 +13,30 @@ import {
 const Record = ({ navigation }) => {
   const [recording, setRecording] = useState(false);
 
-  const doSomething = () => {
-    setRecording(!recording);
+  const micImage = recording
+    ? require("../assets/mic_on.png")
+    : require("../assets/mic_off.png");
+
+  const buttonText = recording
+    ? "Press me to Stop and Save your recording"
+    : "Press me to start recording";
+
+  const toggleRecording = () => {
+    if (recording) {
+      console.log("Stopping recording");
+    } else {
+      console.log("Starting recording");
+    }
+    setRecording((prevRecording) => !prevRecording);
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={doSomething}>
-        {recording ? (
-          <Image
-            source={require("../assets/mic_on.png")}
-            style={styles.image}
-          />
-        ) : (
-          <Image
-            source={require("../assets/mic_off.png")}
-            style={styles.image}
-          />
-        )}
+      <TouchableOpacity onPress={toggleRecording}>
+        <Image source={micImage} style={styles.image} />
       </TouchableOpacity>
       <View style={styles.spacer} />
-      <Text>Press me to start recording</Text>
+      <Text>{buttonText}</Text>
       <View style={styles.spacer} />
       <Button
         onPress={() => {
