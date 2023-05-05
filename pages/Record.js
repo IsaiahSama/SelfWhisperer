@@ -10,11 +10,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Audio } from "expo-av";
+import Voice from "react-native-voice";
 
 const Record = ({ navigation }) => {
   const [recording, setRecording] = useState(false);
   const [recorder, setRecorder] = useState();
+  const [text, setText] = useState("");
+
+  Voice._onSpeechResults = (e) => setText(e.value);
 
   const micImage = recording
     ? require("../assets/mic_on.png")
