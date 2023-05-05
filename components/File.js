@@ -10,3 +10,5 @@ const File = () => {
     </View>
   );
 };
+
+export default File;
