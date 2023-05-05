@@ -10,26 +10,24 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import Voice from "react-native-voice";
+import { Audio } from "expo-av";
 
 const Record = ({ navigation }) => {
-  const [recording, setRecording] = useState(false);
-  const [recorder, setRecorder] = useState();
+  const [isRecording, setIsRecording] = useState(false);
+  const [recording, setRecording] = useState();
   const [text, setText] = useState("");
 
-  Voice._onSpeechResults = (e) => setText(e.value);
-
-  const micImage = recording
+  const micImage = isRecording
     ? require("../assets/mic_on.png")
     : require("../assets/mic_off.png");
 
-  const buttonText = recording
+  const buttonText = isRecording
     ? "Press me to Stop and Save your recording"
     : "Press me to start recording";
 
   const toggleRecording = async () => {
     try {
-      if (!recording) {
+      if (!isRecording) {
         startRecording();
       } else {
         stopRecording();
@@ -37,7 +35,7 @@ const Record = ({ navigation }) => {
     } catch (err) {
       console.log("An error occurred with recording: ", err.message);
     } finally {
-      setRecording((prevRecording) => !prevRecording);
+      setIsRecording((prevRecording) => !prevRecording);
     }
   };
 
@@ -51,10 +49,10 @@ const Record = ({ navigation }) => {
       });
 
       console.log("Starting recording..");
-      const rec = await Audio.Recording.createAsync(
+      const { recording } = await Audio.Recording.createAsync(
         Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
-      setRecorder(rec.recording);
+      setRecording(recording);
       console.log("Recording started");
     } catch (err) {
       console.error("Failed to start recording", err);
@@ -62,14 +60,13 @@ const Record = ({ navigation }) => {
   }
 
   async function stopRecording() {
-    console.log("Stopping recording");
-    await recorder.stopAndUnloadAsync();
-    const uri = recorder.getURI();
+    console.log("Stopping recording..");
+    setRecording(undefined);
+    await recording.stopAndUnloadAsync();
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
     });
-
-    setRecorder(undefined);
+    const uri = recording.getURI();
     console.log("Recording stopped and stored at", uri);
   }
 
