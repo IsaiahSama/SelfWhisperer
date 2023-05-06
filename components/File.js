@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     justifyContent: "space-between",
-    maxHeight: 90,
     height: 70,
     marginBottom: 10,
     backgroundColor: "#f9f9f9",
