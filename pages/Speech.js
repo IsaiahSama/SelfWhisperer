@@ -30,11 +30,6 @@ const Speech = ({ navigation }) => {
   return (
     <ScrollView style={{ flex: 1, marginLeft: 5 }}>
       {/* Go through each file in Files, and then display them or something ig... */}
-      <File name="Testing" text="These are the first few words of the..." />
-      <File
-        name="Another Test"
-        text="Somebody once told me the world was mac..."
-      />
 
       {files.map((file) => (
         <File key={file.name} name={file.name} text={file.text} />
