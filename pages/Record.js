@@ -75,7 +75,6 @@ const Record = ({ navigation }) => {
       };
       // pass the file object to your API
       await uploadAudio(file);
-      console.log(words);
     } catch (error) {
       console.error(error);
     }
