@@ -106,6 +106,8 @@ const Record = ({ navigation }) => {
       <View style={styles.spacer} />
       <Text>{buttonText}</Text>
       <View style={styles.spacer} />
+      <Text>Last Message: {text}</Text>
+      <View style={styles.spacer} />
       <Button
         onPress={() => {
           navigation.navigate("Files");
