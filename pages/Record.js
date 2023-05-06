@@ -92,7 +92,7 @@ const Record = ({ navigation }) => {
         },
       });
       const data = await response.json();
-      console.log(data);
+      setText(data["text"]);
     } catch (error) {
       console.error(error);
     }
