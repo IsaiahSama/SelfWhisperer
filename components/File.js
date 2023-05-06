@@ -1,14 +1,21 @@
 // Represents a singular file
 
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const File = ({ name, text }) => {
+  const deleteFile = () => {
+    AsyncStorage.removeItem(name);
+  };
+
   return (
-    <View style={styles.card}>
-      <Text>Name: {name}</Text>
-      <Text>Text: {text}</Text>
-    </View>
+    <TouchableOpacity onPress={deleteFile}>
+      <View style={styles.card}>
+        <Text>Name: {name}</Text>
+        <Text>Text: {text}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

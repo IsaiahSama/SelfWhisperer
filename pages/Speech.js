@@ -1,6 +1,6 @@
 // This is where the transcribed speech files will reside, and be accessed from
 import React, { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import File from "../components/File";
@@ -29,6 +29,9 @@ const Speech = ({ navigation }) => {
 
   return (
     <ScrollView style={{ flex: 1, marginLeft: 5 }}>
+      <Text>
+        Tap an entry to delete it. Reload the page to confirm deletion.
+      </Text>
       {/* Go through each file in Files, and then display them or something ig... */}
 
       {files.map((file) => (
