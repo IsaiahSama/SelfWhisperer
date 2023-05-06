@@ -12,6 +12,7 @@ import {
 
 import { Audio } from "expo-av";
 import * as FileSystem from "expo-file-system";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Record = ({ navigation }) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -73,7 +74,7 @@ const Record = ({ navigation }) => {
         name: `${Date.now()}.m4a`,
       };
       // pass the file object to your API
-      words = await uploadAudio(file);
+      await uploadAudio(file);
       console.log(words);
     } catch (error) {
       console.error(error);
@@ -93,6 +94,11 @@ const Record = ({ navigation }) => {
       });
       const data = await response.json();
       setText(data["text"]);
+      try {
+        await AsyncStorage.setItem(file.name, data["text"]);
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
       console.error(error);
     }
