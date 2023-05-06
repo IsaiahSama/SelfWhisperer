@@ -18,6 +18,8 @@ const Record = ({ navigation }) => {
   const [recording, setRecording] = useState();
   const [text, setText] = useState("");
 
+  const base_URL = "some_valid_url";
+
   const micImage = isRecording
     ? require("../assets/mic_on.png")
     : require("../assets/mic_off.png");
@@ -68,7 +70,7 @@ const Record = ({ navigation }) => {
       const file = {
         uri: fileInfo.uri,
         type: "audio/x-m4a",
-        name: `\${Date.now()}.m4a`,
+        name: `${Date.now()}.m4a`,
       };
       // pass the file object to your API
       words = await uploadAudio(file);
@@ -82,7 +84,7 @@ const Record = ({ navigation }) => {
     const formData = new FormData();
     formData.append("audio", file);
     try {
-      const response = await fetch("http://192.168.38.12:5000/transcribe/", {
+      const response = await fetch(`${base_URL}/transcribe/`, {
         method: "POST",
         body: formData,
         headers: {
